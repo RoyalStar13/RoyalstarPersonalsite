@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Rotating Cards with Description</title>
-  <link rel="stylesheet" href="https://fonts.googleapins.com/css2?family-Poppins:eght@500&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
     <style>
-           *{
-            margin:0;
-             padding:0;
-             box-sizing:border-box;
-             font-family:"Poppins",sans-serif;
-           }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
         body {
             display: flex;
             justify-content: center;
@@ -22,6 +23,7 @@
             perspective: 1000px;
             flex-direction: column;
             overflow: hidden;
+            position: relative; /* Ensure relative positioning for children */
         }
 
         .video-background {
@@ -33,40 +35,64 @@
             object-fit: cover;
             z-index: -1;
         }
-        nav a{
-          position:relative;
-          font-size:1rem;
-          color:#ccdb23;
-          text-decoration:none;
-          padding:6px 20px;
-          transition: .5s;
+
+        nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
         }
-        nav a:hover{
-          color#0ef;
+
+        nav a {
+            position: relative;
+            font-size: 1rem;
+            color: #ccdb23;
+            text-decoration: none;
+            padding: 6px 20px;
+            transition: 0.5s;
         }
-        nav a spam{
-          position:absolute;
-          top:0;
-          left:0;
-          width:100%;
-          height:100%;
-          z-index:-1;
-          border-bottom:2px solid #0ef;
-          border-radius:15px;
-          transform:scale(0) translatey(50px);
-          opactiy:0;
-          transition: .5s;
+
+        nav a:hover {
+            color: #0ef;
         }
-        nav a:hover spam{
-          transform:scale(1) translatey(0);
-          opactiy:1;
+
+        nav a span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            border-bottom: 2px solid #0ef;
+            border-radius: 15px;
+            transform: scale(0) translateY(50px);
+            opacity: 0;
+            transition: 0.5s;
         }
+
+        nav a:hover span {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .menu-toggle {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
         .carousel-container {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
             height: calc(100vh - 60px); /* Leave space for description */
+            margin-top: 60px; /* Adjust as needed */
+            position: relative; /* Ensure relative positioning for children */
         }
 
         .carousel {
@@ -93,12 +119,18 @@
             position: absolute;
             transform-style: preserve-3d;
             cursor: pointer;
+            transition: transform 0.6s;
         }
 
         .card img {
             width: 100%;
             height: 100%;
             border-radius: 10px;
+        }
+
+        .card:hover {
+            animation: none;
+            transform: scale(1.05);
         }
 
         .card:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
@@ -112,18 +144,75 @@
         .card:nth-child(9) { transform: rotateY(320deg) translateZ(300px); }
 
         .description {
-            width: 80%;
-            text-align: center;
-            font-size: 1.2em;
-            color: #333;
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            position: absolute;
+            top: 0;
+            left: -100%; /* Start off-screen */
+            width: 100%; /* Take full width */
+            height: 100vh; /* Take full height */
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: left 0.3s ease-in-out; /* Smooth sliding animation */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
         }
 
-        @media (max-width: 414px) {
+        .description.show {
+            left: 0; /* Slide in when 'show' class is added */
+        }
+
+        .description-text {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ccdb23;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #0ef;
+        }
+
+        @media (max-width: 414px), (max-width: 736px), (max-width: 800px), (max-width: 844px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.8);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+
+            nav a {
+                font-size: 2rem;
+                color: #fff;
+                margin: 10px 0;
+            }
+
+            nav.show {
+                display: flex;
+            }
+
             .card {
                 width: 150px;
                 height: 225px;
@@ -138,40 +227,61 @@
 </head>
 <body>
     <video class="video-background" autoplay muted loop>
-        <source src="https://res.cloudinary.com/dl8dmkhmv/video/upload/v1720439230/YouCut_20240708_171626468_sin7at.mp4" type="video/mp4">
+        <source src="https://res.cloudinary.com/dl8dmkhmv/video/upload/v1720496023/YouCut_20240709_090018330_etcuzt.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-  <nav>
-    <a href="#">HOME<spam></spam></a>
-    <a href="#">PROJECTS<spam></spam></a>
-    <a href="#">ABOUT<spam></spam></a>
-    <a href="#">CONTACT<spam></spam></a>
-  </nav>
 
+    <div class="menu-toggle">&#9776;</div>
+
+    <nav>
+        <a href="#">HOME<span></span></a>
+        <a href="#">PROJECTS<span></span></a>
+        <a href="#">ABOUT<span></span></a>
+        <a href="#">CONTACT<span></span></a>
+    </nav>
+<marquee><font color="#bcf542">when u click on image to see the details about it</font></marquee>
     <div class="carousel-container">
         <div class="carousel">
-            <div class="card" data-description="Description for Image 1,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720425576/20240629_174053_a3rr4f.jpg" alt="Image 1"></div>
-            <div class="card" data-description="Description for Image 2,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/YIHvuk_mdpxwj.jpg" alt="Image 2"></div>
-            <div class="card" data-description="Description for Image 3,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489306/87a66fd61142ba39847bd56a6cf55fc9_ytqim3.jpg" alt="Image 3"></div>
-            <div class="card" data-description="Description for Image 4,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/YIHvuk_mdpxwj.jpg" alt="Image 4"></div>
-            <div class="card" data-description="Description for Image 5,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/__r69kav.jpg" alt="Image 5"></div>
-            <div class="card" data-description="Description for Image 6,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/YIHvuk_mdpxwj.jpg" alt="Image 6"></div>
-            <div class="card" data-description="Description for Image 7,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489306/87a66fd61142ba39847bd56a6cf55fc9_ytqim3.jpg" alt="Image 7"></div>
-            <div class="card" data-description="Description for Image 8,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/__r69kav.jpg" alt="Image 8"></div>
-            <div class="card" data-description="Description for Image 9,soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/YIHvuk_mdpxwj.jpg" alt="Image 9"></div>
+            <div class="card" data-description="Description for Image 1, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720425576/20240629_174053_a3rr4f.jpg" alt="Image 1"></div>
+            <div class="card" data-description="Description for Image 2, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/YIHvuk_mdpxwj.jpg" alt="Image 2"></div>
+            <div class="card" data-description="Description for Image 3, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489306/87a66fd61142ba39847bd56a6cf55fc9_ytqim3.jpg" alt="Image 3"></div>
+            <div class="card" data-description="Description for Image 4, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/YIHvuk_mdpxwj.jpg" alt="Image 4"></div>
+            <div class="card" data-description="Description for Image 5, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/__r69kav.jpg" alt="Image 5"></div>
+            <div class="card" data-description="Description for Image 6, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/YIHvuk_mdpxwj.jpg" alt="Image 6"></div>
+            <div class="card" data-description="Description for Image 7, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489306/87a66fd61142ba39847bd56a6cf55fc9_ytqim3.jpg" alt="Image 7"></div>
+            <div class="card" data-description="Description for Image 8, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/__r69kav.jpg" alt="Image 8"></div>
+            <div class="card" data-description="Description for Image 9, soon coming"><img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720489305/YIHvuk_mdpxwj.jpg" alt="Image 9"></div>
         </div>
     </div>
-    <div class="description">Click on an image to see its description.</div>
+
+    <div class="description">
+        <div class="description-text">Click on an image to see its description.</div>
+        <button class="back-button">Back</button>
+    </div>
 
     <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('show');
+        });
+
         const cards = document.querySelectorAll('.card');
         const description = document.querySelector('.description');
+        const descriptionText = description.querySelector('.description-text');
+        const backButton = description.querySelector('.back-button');
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
                 const desc = card.getAttribute('data-description');
-                description.textContent = desc;
+                descriptionText.textContent = desc;
+                description.classList.add('show');
             });
+        });
+
+        backButton.addEventListener('click', () => {
+            description.classList.remove('show');
         });
     </script>
 </body>
