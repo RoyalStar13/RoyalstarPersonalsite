@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Rotating Cards with Description</title>
+  <link rel="stylesheet" href="https://fonts.googleapins.com/css2?family-Poppins:eght@500&display=swap"/>
     <style>
+           *{
+            margin:0;
+             padding:0;
+             box-sizing:border-box;
+             font-family:"Poppins",sans-serif;
+           }
         body {
             display: flex;
             justify-content: center;
@@ -26,7 +33,34 @@
             object-fit: cover;
             z-index: -1;
         }
-
+        nav a{
+          position:relative;
+          font-size:1rem;
+          color:#ccdb23;
+          text-decoration:none;
+          padding:6px 20px;
+          transition: .5s;
+        }
+        nav a:hover{
+          color#0ef;
+        }
+        nav a spam{
+          position:absolute;
+          top:0;
+          left:0;
+          width:100%;
+          height:100%;
+          z-index:-1;
+          border-bottom:2px solid #0ef;
+          border-radius:15px;
+          transform:scale(0) translatey(50px);
+          opactiy:0;
+          transition: .5s;
+        }
+        nav a:hover spam{
+          transform:scale(1) translatey(0);
+          opactiy:1;
+        }
         .carousel-container {
             display: flex;
             justify-content: center;
@@ -107,6 +141,12 @@
         <source src="https://res.cloudinary.com/dl8dmkhmv/video/upload/v1720439230/YouCut_20240708_171626468_sin7at.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+  <nav>
+    <a href="#">HOME<spam></spam></a>
+    <a href="#">PROJECTS<spam></spam></a>
+    <a href="#">ABOUT<spam></spam></a>
+    <a href="#">CONTACT<spam></spam></a>
+  </nav>
 
     <div class="carousel-container">
         <div class="carousel">
