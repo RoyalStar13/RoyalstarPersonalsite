@@ -3,109 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Developer Chethan</title>
+    <title>Authentication</title>
     <style>
-        /* Reset and General Styling */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
         body, html {
             height: 100%;
+            margin: 0;
             font-family: Arial, sans-serif;
-            color: white;
-            background-color: #121212;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-        .bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
             background-size: cover;
             background-position: center;
-            animation: backgroundAnimation 10s infinite;
-        }
-        @keyframes backgroundAnimation {
-            0% {
-                background-image: url('https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720322091/13.speed-internet-technology-background_qwylnc.jpg');
-            }
-            25% {
-                background-image: url('https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720322091/realistic-background-futuristic-style_23-2149129125_ibfqvk.jpg');
-            }
-            50% {
-                background-image: url('https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720234046/night-nature-light-effects-trees-water-artwork-1954829_f9izsb.jpg');
-            }
-            75% {
-                background-image: url('https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720234044/Dark-Mysterious-Forest-AI-Generated-4K-Wallpaper-jpg_pml22n.webp');
-            }
-            100% {
-                background-image: url('https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720154031/bsr-focus-nature-hero_yefxae.jpg');
-            }
-        }
-        /* Content Styling */
-        .content {
-            position: relative;
-            z-index: 1;
+            transition: background-image 1s ease-in-out;
+            color: white;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 20px; /* Added padding for better spacing */
+            align-items: center;
         }
+
+        /* Flexbox container for centering authentication forms */
+        .auth-container, .register-container, .forgot-container, .otp-container, .reset-container {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            width: 300px;
+        }
+
+        /* Full-height container for main content */
+        .main-container {
+            display: none;
+            min-height: 100vh;
+            width: 100%;
+            padding-top: 80px; /* To ensure content doesn't hide behind the navbar */
+            color: white;
+        }
+
+        /* Input fields and buttons */
+        input[type="text"], input[type="password"], input[type="email"], input[type="tel"], textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            background-color: #3199F5;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #035CD9;
+        }
+
+        /* Links */
+        .link-container {
+            margin: 10px 0;
+        }
+
+        .link-container a {
+            color: #0947E7;
+            text-decoration: none;
+        }
+
+        .link-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navbar */
         .nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(143, 250, 34, 0.8);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            width: 100%; /* Full width for navigation */
-            z-index: 1000; /* Ensure nav bar is above other content */
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
+
         .nav-bar a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-weight: bold;
         }
+
         .nav-bar a:hover {
             color: #ffcc00;
         }
-        .nav-bar .date-time {
-            margin-right: 20px;
-        }
-        .nav-bar .theme-toggle {
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 16px;
-        }
-        .nav-bar .theme-toggle.light {
-            color: black;
-        }
+
+        /* Sections */
         .section {
             padding: 60px 20px;
             background: rgba(0, 0, 0, 0.6);
             margin: 20px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%; /* Full width for sections */
-            max-width: 1200px; /* Limit width for larger screens */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+            text-align: center;
         }
-        .container {
-            width: 100%;
-            max-width: 1200px; /* Limit width for larger screens */
-            margin: 0 auto; /* Center align on larger screens */
-        }
+
+        /* Profile picture */
         .profile-pic img {
             border-radius: 50%;
             width: 150px;
@@ -113,6 +117,7 @@
             box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.2);
             animation: light-effect 2s infinite;
         }
+
         @keyframes light-effect {
             0% {
                 box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.2);
@@ -124,335 +129,336 @@
                 box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.2);
             }
         }
-        .slider-container {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-        .slider {
+
+        /* Home page layout */
+        .home-content {
             display: flex;
-            transition: transform 0.3s ease;
-        }
-        .card {
-            max-width: 300px;
-            max-height:300px;
-            margin: 0 10px;
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            text-align: center;
-            color: #000;
-        }
-        .card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-        .card h3 {
-            margin: 5px 0;
-        }
-        .card p {
-            margin: 5px 0;
-        }
-        .card .stars {
-            color: #f5b301;
-            margin: 10px 0;
-        }
-       .card .buttons {
-            margin: 10px 0;
-        }
-        .card button {
-            margin: 3px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .card button.about {
-            background-color: #00bcd4;
-            color: white;
-        }
-        .card button.hire {
-            background-color: #333;
-            color: white;
-        }
-        .card button:hover {
-            background-color: #005f6a;
-        }
-        .contact-section {
-            margin-top: 50px;
-            text-align: center;
-            color: white;
-        }
-        .contact-section h2 {
-            margin-bottom: 20px;
-            color: #00bcd4;
-        }
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
+            align-items: flex-start;
         }
-        .contact-form input, .contact-form textarea {
-            width: 48%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 5px;
+
+        .profile-pic {
+            flex: 1;
+            text-align: center;
+            margin-right: 20px;
         }
-        .contact-form textarea {
-            width: 100%;
-            height: 100px;
-        }
-        .contact-form button {
-            width: 100%;
-            padding: 15px;
-            background-color: #00bcd4;
-            border: none;
-            border-radius: 5px;
+
+        .home-text {
+            flex: 2;
             color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
         }
-        .contact-form button:hover {
-            background-color: #005f6a;
-        }
-        .slider-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .slider-button:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-        .slider-button.left {
-            left: 10px;
-        }
-        .slider-button.right {
-            right: 10px;
-        }
-        @media (max-width: 768px) {
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
             .nav-bar {
-                padding: 10px 20px;
+                flex-direction: column;
+                align-items: flex-start;
             }
-            .section {
-                padding: 40px 10px;
+
+            .nav-bar a {
+                margin: 10px 0;
             }
-            .profile-pic img {
-                width: 120px;
-                height: 120px;
+
+            .home-content {
+                flex-direction: column;
+                align-items: center;
             }
-            .card {
-                min-width: calc(50% - 20px);
+
+            .profile-pic {
+                margin-right: 0;
+                margin-bottom: 20px;
             }
-            .slider {
-                width: 300%; /* Adjust based on the number of cards */
-            }
         }
-        /* Light Mode */
-        body.light-mode {
-            background-color: #f0f0f0;
-            color: black;
-        }
-        body.light-mode .nav-bar {
-            background: rgba(255, 255, 255, 0.9);
-        }
-        body.light-mode .nav-bar a {
-            color: black;
-        }
-        body.light-mode .nav-bar a:hover {
-            color: #ffcc00;
-        }
-        body.light-mode .section {
-            background: rgba(255, 255, 255, 0.9);
-        }
-        body.light-mode .card {
-            background: #f0f0f0;
-            color: black;
-        }
-        body.light-mode .slider-button {
-            background-color: rgba(255, 255, 255, 0.5);
-            color: black;
-        }
-        body.light-mode .slider-button:hover {
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-            .btno{ 
-        padding: 20px 100px; 
-        background:rgba(255,255,255,0.10); 
-        color:whitesmoke; 
-        border-radius: 40px; 
-        position: relative; 
-        top:300px; 
-        border: none; 
-        font-size: 3rem; 
-        cursor: pointer; 
-      } 
-            .btno:hover{ 
-        background: linear-gradient(90deg,#08ff08,#50e3fc,#bc13fe,#03a9f4,#0ff0fc); 
-        background-size: 500%; 
-        z-index:1; 
-        animation:blink 5s linear infinite; 
-      } 
-           @keyframes blink{ 
-      from{ 
-        background-position: 0%; 
-      } 
-      to{ 
-        background-position: 500%; 
-      } 
-    } 
-          .btno:after{ 
-      content:""; 
-      position: absolute; 
-      left:-10px; 
-      right:-10px; 
-      top:-10px; 
-      bottom:-10px; 
-      border-radius:40px; 
-      filter:blur(50px); 
-      opacity: 0; 
-    } 
-         .btno:hover::after{ 
-      opacity:1; 
-      z-index:-1; 
-      } 
     </style>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="content">
-        <div class="nav-bar">
-            <div class="logo">
-                <a href="#">ROYAL OF ILLEGAL</a>
-            </div>
-            <div class="nav-links">
-                <a href="#home">HOME</a>
-                <a href="#projects">PROJECTS</a>
-                <a href="#skills">SKILLS</a>
-                <a href="#about-me">ABOUT ME</a>
-                <a href="#contact">CONTACT</a>
-                <a href="index.html">GO OFFICIAL Site</a>
-            </div>
-            <div class="date-time" id="date-time">⏰</div>
-            <button class="theme-toggle" id="theme-toggle">🌚</button>
+
+<!-- Authentication forms -->
+<div id="auth" class="auth-container">
+    <h2>Login</h2>
+    <form id="login-form">
+        <input type="text" id="login-username" name="username" placeholder="Username" required>
+        <input type="password" id="login-password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <div class="link-container">
+            <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+            <p><a href="#" onclick="showForgot()">Forgot Password?</a></p>
         </div>
-        <div class="container">
-            <div id="home" class="section home-content">
-              <button class="btno">ROYAL OF ILLEGAL</button>
-                <h1>WELCOME TO <span>ROYAL OF ILLEGAL</span></h1>
-                <h3>I am A <span>💻</span></h3>
-                <p>❗❗soon update </p>
-            </div>
-            <div id="projects" class="section projects-content">
-                <h2>Projects</h2>
-                <div class="slider-container">
-                    <div class="slider">
-                        <div class="card">
-                            <img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720154031/bsr-focus-nature-hero_yefxae.jpg" alt="Project 1">
-                            <h3>Project 1</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, saepe.</p>
-                            <div class="stars">★★★★★</div>
-                            <div class="button">
-                                <button class="about">About</button>
-                                <button class="hire">Hire Me</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720322091/realistic-background-futuristic-style_23-2149129125_ibfqvk.jpg" alt="Project 2">
-                            <h3>Project 2</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, saepe.</p>
-                            <div class="stars">★★★★☆</div>
-                            <div class="button">
-                                <button class="about">About</button>
-                                <button class="hire">Hire Me</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720234046/night-nature-light-effects-trees-water-artwork-1954829_f9izsb.jpg" alt="Project 3">
-                            <h3>Project 3</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, saepe.</p>
-                            <div class="stars">★★★☆☆</div>
-                            <div class="button">
-                                <button class="about">About</button>
-                                <button class="hire">Hire Me</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="slider-button left btn">Prev</button>
-                    <button class="slider-button right btn">Next</button>
-                </div>
-            </div>
-            <div id="skills" class="section skills-content">
-                <h2>Skills</h2>
-                <p>SOON UPDATE </p>
-            </div>
-            <div id="about-me" class="section about-me-content">
-                <h2>About Me</h2>
-                <p>SOON UPDATE</p>
-            </div>
-            <div id="contact" class="section contact-content">
-                <h2>Contact</h2>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" required></textarea>
-                    <button class="btn" type="submit">Send Message</button>
-                </form>
-            </div>
+    </form>
+</div>
+
+<div id="register" class="register-container">
+    <h2>Register</h2>
+    <form id="register-form">
+        <input type="text" id="register-username" name="username" placeholder="Username" required>
+        <input type="password" id="register-password" name="password" placeholder="Password" required>
+        <input type="email" id="register-email" name="email" placeholder="Email" required>
+        <input type="tel" id="register-phone" name="phone" placeholder="Mobile Number" required>
+        <button type="submit">Register</button>
+        <div class="link-container">
+            <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
+    </form>
+</div>
+
+<div id="forgot" class="forgot-container">
+    <h2>Forgot Password</h2>
+    <form id="forgot-form">
+        <input type="text" id="forgot-username" name="username" placeholder="Username" required>
+        <input type="email" id="forgot-email" name="email" placeholder="Email" required>
+        <input type="tel" id="forgot-phone" name="phone" placeholder="Mobile Number" required>
+        <button type="submit">Reset Password</button>
+        <div class="link-container">
+            <p>Remembered your password? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
+    </form>
+</div>
+
+<div id="otp" class="otp-container">
+    <h2>Enter OTP</h2>
+    <form id="otp-form">
+        <input type="text" id="otp-code" name="otp" placeholder="Enter OTP" required>
+        <button type="submit">Verify OTP</button>
+    </form>
+</div>
+
+<div id="reset" class="reset-container">
+    <h2>Reset Password</h2>
+    <form id="reset-form">
+        <input type="password" id="new-password" name="new-password" placeholder="New Password" required>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+        <button type="submit">Change Password</button>
+    </form>
+</div>
+
+<!-- Main content -->
+<div id="main" class="main-container">
+    <!-- Navbar -->
+    <div class="nav-bar">
+        <div>
+            <a href="#home">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#about-me">About Me</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div>
+            <a href="#" onclick="logout()">Logout</a>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const slider = document.querySelector('.slider');
-            const cards = document.querySelectorAll('.card');
-            const prevButton = document.querySelector('.slider-button.left');
-            const nextButton = document.querySelector('.slider-button.right');
-            const dateTimeElement = document.getElementById('date-time');
-            const themeToggle = document.getElementById('theme-toggle');
-            let currentIndex = 0;
 
-            function showSlide(index) {
-                const totalCards = cards.length;
-                currentIndex = (index + totalCards) % totalCards; // Ensure index wraps around
-                slider.style.transform = `translateX(-${currentIndex * 100}%)`; // Adjust based on percentage
+    <!-- Main sections -->
+    <div class="container">
+        <div id="home" class="section">
+            <div class="home-content">
+                <div class="profile-pic">
+                    <img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720065209/IMG_20240515_080836_nr89j0.jpg" alt="Profile Picture">
+                </div>
+                <div class="home-text">
+                    <h1>Welcome, <span id="username-display">Username</span></h1>
+                    <h2>Web Developer, Hacker.</h2>
+                    <p>Living one’s life is no different than producing one’s autobiography.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="projects" class="section">
+            <h2>Projects</h2>
+            <p>No projects available currently.</p>
+        </div>
+
+        <div id="skills" class="section">
+            <h2>Skills</h2>
+            <div class="skills-list">
+                <p>Web Development</p>
+                <p>JavaScript</p>
+                <p>React</p>
+                <p>Node.js</p>
+                <!-- Add more skills as needed -->
+            </div>
+        </div>
+
+        <div id="about-me" class="section">
+            <h2>About Me</h2>
+            <p>Just a simple human being in this world, I try to be the best human possible by helping others. It is never too late to help the poor.</p>
+        </div>
+
+        <div id="contact" class="section">
+            <h2>Contact</h2>
+            <form id="contact-form">
+                        <form action="https://formsubmit.co/el/confirm/59f0228138d142e4ca8970e1258287d3" method="post">
+                <input type="text" id="contact-name" name="name" placeholder="Your Name" required>
+                <input type="email" id="contact-email" name="email" placeholder="Your Email" required>
+                <textarea id="contact-message" name="message" rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const defaultUsername = "kalki";
+        const defaultPassword = "trytoacess";
+
+        const authContainer = document.getElementById("auth");
+        const registerContainer = document.getElementById("register");
+        const forgotContainer = document.getElementById("forgot");
+        const otpContainer = document.getElementById("otp");
+        const resetContainer = document.getElementById("reset");
+        const mainContainer = document.getElementById("main");
+
+        const loginForm = document.getElementById("login-form");
+        const registerForm = document.getElementById("register-form");
+        const forgotForm = document.getElementById("forgot-form");
+        const otpForm = document.getElementById("otp-form");
+        const resetForm = document.getElementById("reset-form");
+        const contactForm = document.getElementById("contact-form");
+
+        let generatedOTP;
+        let currentUser;
+
+        const loginBackground = "https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720322091/realistic-background-futuristic-style_23-2149129125_ibfqvk.jpg";
+        const mainBackground = "https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720322091/13.speed-internet-technology-background_qwylnc.jpg";
+
+        function updateBackground(imageUrl) {
+            document.body.style.backgroundImage = `url('${imageUrl}')`;
+        }
+
+        updateBackground(loginBackground);
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const username = document.getElementById("login-username").value;
+            const password = document.getElementById("login-password").value;
+
+            if (username === defaultUsername && password === defaultPassword) {
+                authContainer.style.display = "none";
+                mainContainer.style.display = "block";
+                document.getElementById("username-display").innerText = username.toUpperCase();
+                updateBackground(mainBackground);
+            } else {
+                alert("Invalid login credentials.");
             }
+        });
 
-            prevButton.addEventListener('click', () => {
-                showSlide(currentIndex - 1);
-            });
+        registerForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            alert("Registration successful! Please login.");
+            showLogin();
+        });
 
-            nextButton.addEventListener('click', () => {
-                showSlide(currentIndex + 1);
-            });
+        forgotForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const email = document.getElementById("forgot-email").value;
+            const phone = document.getElementById("forgot-phone").value;
+            const username = document.getElementById("forgot-username").value;
 
-            // Initial slide
-            showSlide(currentIndex);
-
-            // Date and Time Display
-            function updateDateTime() {
-                const now = new Date();
-                dateTimeElement.textContent = now.toLocaleString();
+            if (email || phone) {
+                generatedOTP = Math.floor(100000 + Math.random() * 900000);
+                currentUser = username;
+                alert("OTP sent to your email or phone number.");
+                showOTP();
+            } else {
+                alert("Please provide a valid email or phone number.");
             }
-            setInterval(updateDateTime, 1000);
-            updateDateTime();
+        });
 
-            // Theme Toggle
-            themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                themeToggle.textContent = document.body.classList.contains('light-mode') ? '🌞' : '🌚';
+        otpForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const enteredOTP = document.getElementById("otp-code").value;
+            if (parseInt(enteredOTP) === generatedOTP) {
+                showReset();
+            } else {
+                alert("Invalid OTP.");
+            }
+        });
+
+        resetForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const newPassword = document.getElementById("new-password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            if (newPassword === confirmPassword) {
+                alert("Password changed successfully.");
+                showLogin();
+            } else {
+                alert("Passwords do not match.");
+            }
+        });
+
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Fetch form values
+            const name = document.getElementById("contact-name").value;
+            const email = document.getElementById("contact-email").value;
+            const message = document.getElementById("contact-message").value;
+
+            // Example: Send form data to a server (replace with your actual logic)
+            const formData = {
+                name: name,
+                email: email,
+                message: message
+            };
+
+            // Example: Display form data in console (replace with your actual logic)
+            console.log(formData);
+
+            // Clear form after submission (optional)
+            contactForm.reset();
+        });
+
+        authContainer.style.display = "block";
+
+        window.showRegister = function () {
+            authContainer.style.display = "none";
+            forgotContainer.style.display = "none";
+            registerContainer.style.display = "block";
+        };
+
+        window.showLogin = function () {
+            registerContainer.style.display = "none";
+            forgotContainer.style.display = "none";
+            otpContainer.style.display = "none";
+            resetContainer.style.display = "none";
+            authContainer.style.display = "block";
+            updateBackground(loginBackground);
+        };
+
+        window.showForgot = function () {
+            authContainer.style.display = "none";
+            registerContainer.style.display = "none";
+            otpContainer.style.display = "none";
+            resetContainer.style.display = "none";
+            forgotContainer.style.display = "block";
+        };
+
+        window.showOTP = function () {
+            forgotContainer.style.display = "none";
+            otpContainer.style.display = "block";
+        };
+
+        window.showReset = function () {
+            otpContainer.style.display = "none";
+            resetContainer.style.display = "block";
+        };
+
+        window.logout = function () {
+            mainContainer.style.display = "none";
+            showLogin();
+        };
+
+        // Smooth scroll for navbar links
+        document.querySelectorAll('.nav-bar a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
