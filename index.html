@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,9 +34,11 @@
             color: #007bff;
             font-weight: bold;
         }
+
         nav a:hover {
             color: #0ef;
         }
+
         nav ul {
             list-style: none;
             margin: 0;
@@ -176,6 +178,36 @@
             margin: 0 10px;
         }
 
+        .like-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .like-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+
+        .like-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .like-count {
+            font-size: 1em;
+            color: #007bff;
+        }
+
         /* Media Queries for Specific Mobile Sizes */
         @media (max-width: 414px) {
             .container {
@@ -241,13 +273,17 @@
             <nav>
                 <div class="menu-toggle" onclick="toggleMenu()">☰Menu</div>
                 <ul>
-                    <li><a href="index.html" class="active">Home</a><spam></spam></li>
+                    <li><a href="index.html" class="active">Home<spam></spam></a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="projects.html">Projects</a><spam></spam></li>
-                    <li><a href="contactme.html">Contact</a><spam></spam></li>
-                    <li><a href="othersite.html">Personal#444</a><spam></spam></li>
+                    <li><a href="projects.html">Projects<spam></spam></a></li>
+                    <li><a href="contactme.html">Contact<spam></spam></a></li>
+                    <li><a href="othersite.html">Personal#444<spam></spam></a></li>
                 </ul>
             </nav>
+            <div class="like-container">
+                <button class="like-button" id="likeButton" onclick="incrementLike()">Like</button>
+                <span class="like-count" id="likeCount">0</span>
+            </div>
             <a href="#" class="btn-download">Download CV</a>
         </div>
     </header>
@@ -290,6 +326,16 @@
         function toggleMenu() {
             const navUl = document.querySelector('nav ul');
             navUl.classList.toggle('active');
+        }
+
+        let likeCount = 0;
+
+        function incrementLike() {
+            likeCount++;
+            document.getElementById('likeCount').textContent = likeCount;
+            const likeButton = document.getElementById('likeButton');
+            likeButton.disabled = true;
+            likeButton.textContent = "Liked";
         }
     </script>
 </body>
