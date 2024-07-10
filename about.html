@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Designer Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #4c4d9e, #5b69c0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+
+        nav a {
+            position: relative;
+            font-size: 1rem;
+            color: #ccdb23;
+            text-decoration: none;
+            padding: 6px 20px;
+            transition: 0.5s;
+        }
+
+        nav a:hover {
+            color: #0ef;
+        }
+
+        nav a span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            border-bottom: 2px solid #0ef;
+            border-radius: 15px;
+            transform: scale(0) translateY(50px);
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        nav a:hover span {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .menu-toggle {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            max-width: 900px;
+            background: #2d2d3a;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile {
+            background: #3b3b4f;
+            padding: 30px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .profile-title {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        .info {
+            padding: 30px;
+            flex: 2;
+        }
+
+        .info-title {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .info-subtitle {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .buttons .btn {
+            background: #644ff6;
+            color: #fff;
+            padding: 10px 20px;
+            margin-right: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .buttons .btn:hover {
+            background: #4c4d9e;
+        }
+
+        .info-text {
+            margin: 20px 0;
+            font-size: 16px;
+            color: #ccc;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .heart {
+            color: #e74c3c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .profile, .info {
+                padding: 20px;
+            }
+
+            .info-title {
+                font-size: 36px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.8);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+
+            nav a {
+                font-size: 2rem;
+                color: #fff;
+                margin: 10px 0;
+            }
+
+            nav.show {
+                display: flex;
+            }
+        }
+
+        .profile-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #3b3b4f;
+            padding: 30px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .profile-right img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-toggle">&#9776;</div>
+    <nav>
+        <a href="index.html">HOME<span></span></a>
+        <a href="projects.html">PROJECTS<span></span></a>
+        <a href="about.html">ABOUT<span></span></a>
+        <a href="contactme.html">CONTACT<span></span></a>
+    </nav>
+    <div class="container">
+        <div class="profile">
+            <div class="hero-img">
+                <img src="https://res.cloudinary.com/dl8dmkhmv/image/upload/v1720425576/20240629_174053_a3rr4f.jpg" alt="Profile Picture" class="profile-img">
+            </div>
+            <h2 class="profile-name">CHETHAN_ROYALSTAR</h2>
+            <p class="profile-title">WEB UPDATE SOON</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="info">
+            <h1 class="info-title">HELLO!</h1>
+            <p class="info-subtitle">Here's who I am & what I do</p>
+            <div class="buttons">
+                <a href="#" class="btn">.......</a>
+                <a href="#" class="btn">.......</a>
+            </div>
+            <p class="info-text">soon update the page!!</p>
+            <p class="info-text">....</p>
+            <p class="footer">.... <span class="heart">❤</span> .....</p>
+        </div>
+    </div>
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
