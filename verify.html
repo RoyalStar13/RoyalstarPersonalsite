@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Verify Your Mobile Number</h1>
+<form method="POST">
+    <p>
+        Verification Code:<br>
+        <input type="text" name="code" size="32"><br>
+        <input type="submit" value="Verify">
+    </p>
+</form>
+{% endblock %}
